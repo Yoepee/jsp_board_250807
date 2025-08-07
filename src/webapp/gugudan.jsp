@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.back.jsp.board.Rq"%>
 
 <%
-int dan = Integer.parseInt(request.getParameter("dan"));
-int limit = Integer.parseInt(request.getParameter("limit"));
+Rq rq = new Rq(request, response);
+int dan = rq.getParamAsInt("dan", 9);
+int limit = rq.getParamAsInt("limit", 9);
 %>
 
 <h1><%= dan%> 단</h1>
