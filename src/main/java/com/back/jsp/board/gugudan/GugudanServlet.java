@@ -1,5 +1,6 @@
 package com.back.jsp.board.gugudan;
 
+import com.back.jsp.board.Rq;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,37 +15,29 @@ import static java.util.stream.IntStream.range;
 public class GugudanServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/html; charset=UTF-8");
+        Rq rq = new Rq(req, resp);
 
-        String dan = req.getParameter("dan");
-        System.out.println("dan = " + dan);
+        int dan = rq.getParamAsInt("dan", -1);
+        int limit = rq.getParamAsInt("limit", 10);
 
-        if (dan != null && !dan.isEmpty()) {
-            int danNum = Integer.parseInt(dan);
-            printDan(danNum, resp);
-        } else {
+
+        if (dan == -1){
             range(2,10).forEach(
                     i -> {
-                        try {
-                            printDan(i, resp);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                        rq.writer(printDan(i, limit));
                     }
             );
+        } else {
+            rq.writer(printDan(dan, limit));
         }
     }
 
-    public void printDan(int dan, HttpServletResponse resp) throws IOException {
-        resp.getWriter().append("<h2>%d단</h2>".formatted(dan));
-        range(1, 10).forEach(j -> {
-            try {
-                resp.getWriter().append("%d x %d = %d <br>".formatted(dan, j, dan*j));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+    public String printDan(int dan, int limit) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<h2>%d단</h2>".formatted(dan));
+        range(1, limit + 1).forEach(j -> {
+            sb.append("%d x %d = %d <br>".formatted(dan, j, dan * j));
         });
+        return sb.toString();
     }
 }
