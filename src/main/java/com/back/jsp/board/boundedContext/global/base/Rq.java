@@ -68,4 +68,12 @@ public class Rq {
     public void setAttr(String key, Object value) {
         req.setAttribute(key, value);
     }
+
+    public void redirect(String path) {
+        try {
+            resp.sendRedirect("/%s".formatted(path));
+        } catch (IOException e) {
+            throw new RuntimeException("리다이렉트 중 오류가 발생했습니다.", e);
+        }
+    }
 }

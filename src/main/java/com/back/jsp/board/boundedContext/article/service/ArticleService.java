@@ -16,4 +16,8 @@ public class ArticleService {
     public List<Article> getArticles() {
         return repository.getArticles().reversed();
     }
+
+    public Article writeArticle(String title, String content) {
+        return repository.saveArticle(new Article(title, content));
+    }
 }

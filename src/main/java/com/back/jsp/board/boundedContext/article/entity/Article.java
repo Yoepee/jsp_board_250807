@@ -11,4 +11,13 @@ public class Article {
     private int id;
     private String title;
     private String content;
+
+    public Article(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public boolean isNew() {
+        return id == 0;
+    }
 }
