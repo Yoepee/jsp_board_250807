@@ -1,5 +1,7 @@
 package com.back.jsp.board.boundedContext.global.base;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -50,5 +52,20 @@ public class Rq {
         } catch (IOException e) {
             throw new RuntimeException("응답 작성 중 오류가 발생했습니다.", e);
         }
+    }
+
+    public void view(String path) {
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/jsp/%s.jsp".formatted(path));
+        try {
+            requestDispatcher.forward(req, resp);
+        } catch (ServletException e) {
+            throw new RuntimeException("뷰로 포워딩 중 오류가 발생했습니다.", e);
+        } catch (IOException e) {
+            throw new RuntimeException("뷰로 포워딩 중 IO 오류가 발생했습니다.", e);
+        }
+    }
+
+    public void setAttr(String key, Object value) {
+        req.setAttribute(key, value);
     }
 }
