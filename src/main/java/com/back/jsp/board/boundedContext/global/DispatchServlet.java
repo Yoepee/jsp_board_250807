@@ -1,8 +1,8 @@
 package com.back.jsp.board.boundedContext.global;
 
-import com.back.jsp.board.Rq;
 import com.back.jsp.board.boundedContext.article.controller.ArticleController;
 import com.back.jsp.board.boundedContext.base.Container;
+import com.back.jsp.board.boundedContext.global.base.Rq;
 import com.back.jsp.board.boundedContext.member.controller.MemberController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+
+;
 
 @WebServlet("/usr/*")
 public class DispatchServlet extends HttpServlet {

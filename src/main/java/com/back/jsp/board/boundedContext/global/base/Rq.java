@@ -1,14 +1,12 @@
-package com.back.jsp.board;
+package com.back.jsp.board.boundedContext.global.base;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Getter;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-@Getter
 public class Rq {
     private final HttpServletRequest req;
     private final HttpServletResponse resp;
@@ -46,7 +44,7 @@ public class Rq {
         }
     }
 
-    public void writer(String s) {
+    public void appendBody(String s) {
         try {
             resp.getWriter().append(s);
         } catch (IOException e) {
