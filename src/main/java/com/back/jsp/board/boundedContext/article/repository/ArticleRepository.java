@@ -28,4 +28,11 @@ public class ArticleRepository {
 
         return article;
     }
+
+    public Article getArticleById(int id) {
+        return articles.stream()
+                .filter(article -> article.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
 }

@@ -11,6 +11,7 @@ public class Article {
     private int id;
     private String title;
     private String content;
+    private int count;
 
     public Article(String title, String content) {
         this.title = title;
@@ -19,5 +20,9 @@ public class Article {
 
     public boolean isNew() {
         return id == 0;
+    }
+
+    public void increaseCount() {
+        this.count++;
     }
 }
