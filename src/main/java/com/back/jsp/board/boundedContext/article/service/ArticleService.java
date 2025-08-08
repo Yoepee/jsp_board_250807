@@ -20,9 +20,15 @@ public class ArticleService {
     public Article writeArticle(String title, String content) {
         return repository.saveArticle(new Article(title, content));
     }
-
     public Article getArticleById(int id) {
         Article article = repository.getArticleById(id);
+        if (article == null) {
+            return null;
+        }
+        return article;
+    }
+    public Article getDetailById(int id) {
+        Article article = getArticleById(id);
         if (article == null) {
             return null;
         }

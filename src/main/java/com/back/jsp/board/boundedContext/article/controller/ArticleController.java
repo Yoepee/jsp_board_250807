@@ -23,14 +23,14 @@ public class ArticleController {
         int id = rq.getParamAsInt("id", -1);
         if (id == -1) {
             rq.setAttr("errorMessage", "잘못된 요청입니다.");
-            rq.view("usr/article/list");
+            showList(rq);
             return;
         }
 
-        Article article = articleService.getArticleById(id);
+        Article article = articleService.getDetailById(id);
         if (article == null) {
             rq.setAttr("errorMessage", "해당 게시글이 존재하지 않습니다.");
-            rq.view("usr/article/list");
+            showList(rq);
             return;
         }
 
@@ -61,8 +61,8 @@ public class ArticleController {
             return;
         }
 
-        Article article = articleService.writeArticle(title, content);
+        articleService.writeArticle(title, content);
         rq.setAttr("successMessage", "게시글이 등록되었습니다.");
-        showList(rq);
+        rq.redirect("usr/article/list");
     }
 }

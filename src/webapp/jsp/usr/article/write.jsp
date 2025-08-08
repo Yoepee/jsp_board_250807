@@ -1,23 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <script>
     function handleArticleSubmit(form) {
         const title = form.title.value.trim();
         const content = form.content.value.trim();
 
-        // if (title.length == 0) {
-        //     event.preventDefault();
-        //     alert("제목을 입력해주세요.");
-        //     form.title.value = title;
-        //     form.title.focus();
-        //     return false;
-        // } else if (content.length == 0) {
-        //     event.preventDefault();
-        //     alert("내용을 입력해주세요.");
-        //     form.content.value = content;
-        //     form.content.focus();
-        //     return false;
-        // }
+        if (title.length == 0) {
+            event.preventDefault();
+            alert("제목을 입력해주세요.");
+            form.title.value = title;
+            form.title.focus();
+            return false;
+        } else if (content.length == 0) {
+            event.preventDefault();
+            alert("내용을 입력해주세요.");
+            form.content.value = content;
+            form.content.focus();
+            return false;
+        }
     }
 </script>
 
