@@ -38,30 +38,31 @@ public class ArticleController {
         rq.view("usr/article/detail");
     }
     public void doWrite(Rq rq) {
-        String title = rq.getParam("title", "");
-        String content = rq.getParam("content", "");
+        String title = rq.getParam("title", "").trim();
+        String content = rq.getParam("content", "").trim();
 
         if (title.isEmpty()) {
-            rq.setAttr("errorMessage", "제목을 입력해주세요.");
-            rq.view("usr/article/write");
+            rq.appendBody("""
+                    <script>
+                        alert('제목을 입력해주세요.');
+                        history.back();
+                    </script>
+                    """);
             return;
         }
 
         if (content.isEmpty()) {
-            rq.setAttr("errorMessage", "내용을 입력해주세요.");
-            rq.view("usr/article/write");
+            rq.appendBody("""
+                    <script>
+                        alert('내용을 입력해주세요.');
+                        history.back();
+                    </script>
+                    """);
             return;
         }
 
         Article article = articleService.writeArticle(title, content);
         rq.setAttr("successMessage", "게시글이 등록되었습니다.");
-        rq.appendBody("""
-                <div>
-                    <p>%d번 게시글 생성</p>
-                    <p>제목: %s</p>
-                    <p>내용: %s</p>
-                </div>
-                """.formatted(article.getId(), article.getTitle(), article.getContent()));
         showList(rq);
     }
 }
