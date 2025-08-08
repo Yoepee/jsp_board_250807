@@ -24,8 +24,8 @@
 
 <h1> 게시물 작성 </h1>
 <div>
-    <form onsubmit="handleArticleSubmit(this)" action="${pageContext.request.contextPath}/usr/article/doWrite"
-          method="get">
+    <form onsubmit="handleArticleSubmit(this)" action="${pageContext.request.contextPath}/usr/article/write"
+          method="post">
         <div>
             <label for="title">제목:</label>
             <input type="text" id="title" name="title" required>

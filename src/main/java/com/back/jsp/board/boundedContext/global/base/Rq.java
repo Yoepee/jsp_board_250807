@@ -76,4 +76,8 @@ public class Rq {
             throw new RuntimeException("리다이렉트 중 오류가 발생했습니다.", e);
         }
     }
+
+    public String getUrlPath() {
+        return req.getRequestURI();
+    }
 }
