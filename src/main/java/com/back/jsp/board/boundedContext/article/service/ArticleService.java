@@ -40,4 +40,11 @@ public class ArticleService {
         article.increaseCount();
         return article;
     }
+    public boolean deleteArticle(long id) {
+        Article article = getArticleById(id);
+        if (article == null) {
+            return false;
+        }
+        return repository.deleteArticle(article);
+    }
 }

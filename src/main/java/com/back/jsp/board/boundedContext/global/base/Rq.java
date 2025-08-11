@@ -80,8 +80,29 @@ public class Rq {
         }
     }
 
-    public String getUrlPath() {
-        return req.getRequestURI();
+    public void printMessage(String message) {
+        appendBody("""
+                <script>
+                alert('%s');
+                </script>
+                """.formatted(message));
+    }
+    public void historyBack(String message) {
+        printMessage(message);
+        appendBody("""
+                <script>
+                history.back();
+                </script>
+                """);
+    }
+
+    public void replace(String message, String url){
+        printMessage(message);
+        appendBody("""
+                <script>
+                location.replace('%s');
+                </script>
+                """.formatted(url));
     }
 
     public String getActionPath() {

@@ -29,6 +29,11 @@ public class ArticleRepository {
         return article;
     }
 
+    public boolean deleteArticle(Article article) {
+        articles.remove(article);
+        return true;
+    }
+
     public Article getArticleById(long id) {
         return articles.stream()
                 .filter(article -> article.getId() == id)

@@ -21,15 +21,14 @@ public class ArticleController {
     }
     public void showDetail(Rq rq) {
         long id = rq.getLongPathValueIndex(1, -1);
+        if (id == -1) {
+            rq.replace("유효하지 않은 아이디입니다.".formatted(id), "/usr/article/list");
+            return;
+        }
 
         Article article = articleService.getDetailById(id);
         if (article == null) {
-            rq.appendBody("""
-                    <script>
-                        alert('해당 게시글이 존재하지 않습니다.');
-                        history.back();
-                    </script>
-                    """);
+            rq.replace("%d번 게시글이 존재하지 않습니다.".formatted(id), "/usr/article/list");
             return;
         }
 
@@ -38,15 +37,14 @@ public class ArticleController {
     }
     public void showModify(Rq rq) {
         long id = rq.getLongPathValueIndex(1, -1);
+        if (id == -1) {
+            rq.replace("유효하지 않은 아이디입니다.".formatted(id), "/usr/article/list");
+            return;
+        }
 
         Article article = articleService.getDetailById(id);
         if (article == null) {
-            rq.appendBody("""
-                    <script>
-                        alert('해당 게시글이 존재하지 않습니다.');
-                        history.back();
-                    </script>
-                    """);
+            rq.replace("%d번 게시글이 존재하지 않습니다.".formatted(id), "/usr/article/list");
             return;
         }
 
@@ -59,66 +57,61 @@ public class ArticleController {
         String content = rq.getParam("content", "").trim();
 
         if (title.isEmpty()) {
-            rq.appendBody("""
-                    <script>
-                        alert('제목을 입력해주세요.');
-                        history.back();
-                    </script>
-                    """);
+            rq.historyBack("제목을 입력해주세요.");
             return;
         }
 
         if (content.isEmpty()) {
-            rq.appendBody("""
-                    <script>
-                        alert('내용을 입력해주세요.');
-                        history.back();
-                    </script>
-                    """);
+            rq.historyBack("내용을 입력해주세요.");
             return;
         }
 
         Article article = articleService.writeArticle(title, content);
-        rq.setAttr("successMessage", "게시글이 등록되었습니다.");
-        rq.redirect("usr/article/detail/%d".formatted(article.getId()));
+        rq.replace("%d번 게시글이 등록되었습니다.".formatted(article.getId()), "/usr/article/detail/%d".formatted(article.getId()));
     }
 
     public void doModify(Rq rq) {
         Long id = rq.getLongPathValueIndex(1, -1);
+        if (id == -1) {
+            rq.replace("유효하지 않은 아이디입니다.".formatted(id), "/usr/article/list");
+            return;
+        }
+
         String title = rq.getParam("title", "").trim();
         String content = rq.getParam("content", "").trim();
 
         if (title.isEmpty()) {
-            rq.appendBody("""
-                    <script>
-                        alert('제목을 입력해주세요.');
-                        history.back();
-                    </script>
-                    """);
+            rq.historyBack("제목을 입력해주세요.");
             return;
         }
 
         if (content.isEmpty()) {
-            rq.appendBody("""
-                    <script>
-                        alert('내용을 입력해주세요.');
-                        history.back();
-                    </script>
-                    """);
+            rq.historyBack("내용을 입력해주세요.");
             return;
         }
+
         Article article = articleService.getDetailById(id);
         if (article == null) {
-            rq.appendBody("""
-                    <script>
-                        alert('해당 게시글이 존재하지 않습니다.');
-                        history.back();
-                    </script>
-                    """);
+            rq.replace("%d번 게시글이 존재하지 않습니다.".formatted(id), "/usr/article/list");
             return;
         }
+
         articleService.modifyArticle(article, title, content);
-        rq.setAttr("successMessage", "게시글이 수정되었습니다.");
-        rq.redirect("usr/article/detail/%d".formatted(id));
+        rq.replace("%d번 게시글이 수정되었습니다.".formatted(article.getId()), "/usr/article/detail/%d".formatted(article.getId()));
+    }
+    public void doDelete(Rq rq) {
+        Long id = rq.getLongPathValueIndex(1, -1);
+        if (id == -1) {
+            rq.replace("유효하지 않은 아이디입니다.".formatted(id), "/usr/article/list");
+            return;
+        }
+
+        boolean doDelete = articleService.deleteArticle(id);
+        if (!doDelete) {
+            rq.replace("%d번 게시글이 존재하지 않습니다.".formatted(id), "/usr/article/list");
+            return;
+        }
+
+        rq.replace("%d번 게시글이 삭제되었습니다.".formatted(id), "/usr/article/list");
     }
 }
