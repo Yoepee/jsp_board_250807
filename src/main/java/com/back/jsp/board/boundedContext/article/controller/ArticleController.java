@@ -22,15 +22,23 @@ public class ArticleController {
     public void showDetail(Rq rq) {
         int id = rq.getParamAsInt("id", -1);
         if (id == -1) {
-            rq.setAttr("errorMessage", "잘못된 요청입니다.");
-            showList(rq);
+            rq.appendBody("""
+                    <script>
+                        alert('잘못된 요청입니다.');
+                        history.back();
+                    </script>
+                    """);
             return;
         }
 
         Article article = articleService.getDetailById(id);
         if (article == null) {
-            rq.setAttr("errorMessage", "해당 게시글이 존재하지 않습니다.");
-            showList(rq);
+            rq.appendBody("""
+                    <script>
+                        alert('해당 게시글이 존재하지 않습니다.');
+                        history.back();
+                    </script>
+                    """);
             return;
         }
 
