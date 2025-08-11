@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.Map;
 
 public class Rq {
@@ -79,5 +80,12 @@ public class Rq {
 
     public String getUrlPath() {
         return req.getRequestURI();
+    }
+
+    public String getActionPath() {
+        String[] bits = req.getRequestURI().trim().split("/");
+        bits = Arrays.stream(bits).filter(bit -> !bit.isEmpty()).toArray(String[]::new);
+
+        return "/%s/%s/%s".formatted(bits[0], bits[1], bits[2]);
     }
 }
