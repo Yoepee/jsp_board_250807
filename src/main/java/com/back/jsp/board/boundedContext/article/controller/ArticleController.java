@@ -36,6 +36,24 @@ public class ArticleController {
         rq.setAttr("article", article);
         rq.view("usr/article/detail");
     }
+    public void showModify(Rq rq) {
+        long id = rq.getLongPathValueIndex(1, -1);
+
+        Article article = articleService.getDetailById(id);
+        if (article == null) {
+            rq.appendBody("""
+                    <script>
+                        alert('해당 게시글이 존재하지 않습니다.');
+                        history.back();
+                    </script>
+                    """);
+            return;
+        }
+
+        // TODO: 데이터 불러오기
+        rq.setAttr("article", article);
+        rq.view("usr/article/modify");
+    }
     public void doWrite(Rq rq) {
         String title = rq.getParam("title", "").trim();
         String content = rq.getParam("content", "").trim();
@@ -60,8 +78,47 @@ public class ArticleController {
             return;
         }
 
-        articleService.writeArticle(title, content);
+        Article article = articleService.writeArticle(title, content);
         rq.setAttr("successMessage", "게시글이 등록되었습니다.");
-        rq.redirect("usr/article/list");
+        rq.redirect("usr/article/detail/%d".formatted(article.getId()));
+    }
+
+    public void doModify(Rq rq) {
+        Long id = rq.getLongPathValueIndex(1, -1);
+        String title = rq.getParam("title", "").trim();
+        String content = rq.getParam("content", "").trim();
+
+        if (title.isEmpty()) {
+            rq.appendBody("""
+                    <script>
+                        alert('제목을 입력해주세요.');
+                        history.back();
+                    </script>
+                    """);
+            return;
+        }
+
+        if (content.isEmpty()) {
+            rq.appendBody("""
+                    <script>
+                        alert('내용을 입력해주세요.');
+                        history.back();
+                    </script>
+                    """);
+            return;
+        }
+        Article article = articleService.getDetailById(id);
+        if (article == null) {
+            rq.appendBody("""
+                    <script>
+                        alert('해당 게시글이 존재하지 않습니다.');
+                        history.back();
+                    </script>
+                    """);
+            return;
+        }
+        articleService.modifyArticle(article, title, content);
+        rq.setAttr("successMessage", "게시글이 수정되었습니다.");
+        rq.redirect("usr/article/detail/%d".formatted(id));
     }
 }

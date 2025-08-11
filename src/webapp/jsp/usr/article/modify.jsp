@@ -22,19 +22,19 @@
     }
 </script>
 
-<h1> 게시물 작성 </h1>
+<h1> 게시물 수정 </h1>
 <div>
     <form onsubmit="handleArticleSubmit(this)" method="post">
         <div>
             <label for="title">제목:</label>
-            <input type="text" id="title" name="title" required>
+            <input type="text" id="title" name="title" value="${article.title}" required>
         </div>
         <div>
             <label for="content">내용:</label>
-            <textarea id="content" name="content" required></textarea>
+            <textarea id="content" name="content" required>${article.content}</textarea>
         </div>
         <div>
-            <button type="submit">작성하기</button>
+            <button type="submit">수정하기</button>
             <button type="button" onclick="history.back()">취소</button>
         </div>
     </form>

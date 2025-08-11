@@ -72,7 +72,9 @@ public class Rq {
 
     public void redirect(String path) {
         try {
-            resp.sendRedirect("/%s".formatted(path));
+            String ctx = req.getContextPath();
+            String target = path.startsWith("/") ? ctx + path : ctx + "/" + path;
+            resp.sendRedirect(target); // 302
         } catch (IOException e) {
             throw new RuntimeException("리다이렉트 중 오류가 발생했습니다.", e);
         }
