@@ -3,6 +3,7 @@ package com.back.jsp.board.boundedContext.global;
 import com.back.jsp.board.boundedContext.article.controller.ArticleController;
 import com.back.jsp.board.boundedContext.base.Container;
 import com.back.jsp.board.boundedContext.global.base.Rq;
+import com.back.jsp.board.boundedContext.home.controller.HomeController;
 import com.back.jsp.board.boundedContext.member.controller.MemberController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,8 +23,10 @@ public class DispatchServlet extends HttpServlet {
 
         ArticleController articleController = Container.articleController;
         MemberController memberController =  Container.memberController;
+        HomeController homeController = Container.homeController;
 
         switch(rq.getActionPath()) {
+            case "/usr/home" -> homeController.showHome(rq);
             case "/usr/article/list" -> articleController.showList(rq);
             case "/usr/article/write" -> articleController.showWriteForm(rq);
             case "/usr/article/detail" -> articleController.showDetail(rq);

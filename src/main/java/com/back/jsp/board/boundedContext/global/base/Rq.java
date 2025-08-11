@@ -85,6 +85,9 @@ public class Rq {
     public String getActionPath() {
         String[] bits = req.getRequestURI().trim().split("/");
         bits = Arrays.stream(bits).filter(bit -> !bit.isEmpty()).toArray(String[]::new);
+        if (bits.length < 3) {
+            return "/usr/home";
+        }
 
         return "/%s/%s/%s".formatted(bits[0], bits[1], bits[2]);
     }
