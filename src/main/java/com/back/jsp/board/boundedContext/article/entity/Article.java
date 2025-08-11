@@ -8,10 +8,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Article {
-    private int id;
+    private long id;
     private String title;
     private String content;
-    private int count;
+    private long count;
 
     public Article(String title, String content) {
         this.title = title;

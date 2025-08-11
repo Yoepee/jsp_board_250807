@@ -20,16 +20,7 @@ public class ArticleController {
         rq.view("usr/article/write");
     }
     public void showDetail(Rq rq) {
-        int id = rq.getParamAsInt("id", -1);
-        if (id == -1) {
-            rq.appendBody("""
-                    <script>
-                        alert('잘못된 요청입니다.');
-                        history.back();
-                    </script>
-                    """);
-            return;
-        }
+        long id = rq.getLongPathValueIndex(1, -1);
 
         Article article = articleService.getDetailById(id);
         if (article == null) {

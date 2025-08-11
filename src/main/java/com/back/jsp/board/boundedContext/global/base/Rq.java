@@ -88,4 +88,23 @@ public class Rq {
 
         return "/%s/%s/%s".formatted(bits[0], bits[1], bits[2]);
     }
+
+    public String getStringPathValueIndex(int index, String defaultValue) {
+        String[] bits = req.getRequestURI().trim().split("/");
+        bits = Arrays.stream(bits).filter(bit -> !bit.isEmpty()).skip(3).toArray(String[]::new);
+
+        if (index <= 0 || index > bits.length) {
+            return defaultValue;
+        }
+
+        return bits[index-1];
+    }
+
+    public long getLongPathValueIndex(int index, long defaultValue) {
+        try {
+            return Long.parseLong(getStringPathValueIndex(index, String.valueOf(defaultValue)));
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
 }

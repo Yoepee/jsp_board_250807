@@ -15,7 +15,7 @@
         </thead>
         <tbody>
             <c:forEach var="article" items="${articles}" varStatus="status">
-                <tr onclick="location.href = '${pageContext.request.contextPath}/usr/article/detail?id=${article.id}'">
+                <tr onclick="location.href = '${pageContext.request.contextPath}/usr/article/detail/${article.id}'">
                     <td>${article.id}</td>
                     <td>${article.title}</td>
                 </tr>
