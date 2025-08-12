@@ -70,6 +70,10 @@ public class Rq {
         req.setAttribute(key, value);
     }
 
+    public void removeAttr(String key) {
+        req.removeAttribute(key);
+    }
+
     public void redirect(String path) {
         try {
             String ctx = req.getContextPath();
@@ -83,7 +87,7 @@ public class Rq {
     public void printMessage(String message) {
         appendBody("""
                 <script>
-                alert('%s');
+                alert(`%s`);
                 </script>
                 """.formatted(message));
     }

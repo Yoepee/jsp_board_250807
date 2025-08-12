@@ -15,9 +15,16 @@ public class MemberService {
         Member member = new Member(username, password, name);
         return memberRepository.saveMember(member);
     }
+    public Member findByUserName(String username) {
+        Member member = memberRepository.findByUserName(username);
+        if (member == null) {
+            return null; // 회원이 존재하지 않음
+        }
+        return member; // 회원 정보 반환
+    }
 
     public Member loginMember(String username, String password) {
-        Member member = memberRepository.getMemberByUsername(username);
+        Member member = findByUserName(username);
         if (member == null || !member.getPassword().equals(password)) {
             return null; // 로그인 실패
         }

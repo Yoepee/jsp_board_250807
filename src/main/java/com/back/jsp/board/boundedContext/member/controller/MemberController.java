@@ -36,6 +36,12 @@ public MemberController() {
             return;
         }
 
+        Member hasMember = memberService.findByUserName(username);
+        if (hasMember != null) {
+            rq.replace("이미 존재하는 아이디입니다.", "/usr/member/join");
+            return;
+        }
+
         Member member = memberService.joinMember(username, password, name);
         rq.replace("""
                 회원가입이 성공하었습니다.
@@ -63,5 +69,10 @@ public MemberController() {
 
         rq.setAttr("loginedMemberId", member.getId());
         rq.replace("%s님 환영합니다.".formatted(member.getName()), "/");
+    }
+
+    public void doLogout(Rq rq) {
+        rq.removeAttr("loginedMemberId");
+        rq.replace("로그아웃 되었습니다.", "/");
     }
 }

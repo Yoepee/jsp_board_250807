@@ -23,7 +23,7 @@ public class MemberRepository {
         return member;
     }
 
-    public Member getMemberByUsername(String username) {
+    public Member findByUserName(String username) {
         return members.stream()
                 .filter(member -> member.getUsername().equals(username))
                 .findFirst()
