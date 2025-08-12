@@ -5,15 +5,21 @@ import com.back.jsp.board.boundedContext.article.repository.ArticleRepository;
 import com.back.jsp.board.boundedContext.article.service.ArticleService;
 import com.back.jsp.board.boundedContext.home.controller.HomeController;
 import com.back.jsp.board.boundedContext.member.controller.MemberController;
+import com.back.jsp.board.boundedContext.member.repository.MemberRepository;
+import com.back.jsp.board.boundedContext.member.service.MemberService;
 
 public class Container {
+    public static MemberRepository memberRepository;
+    public static MemberService memberService;
+    public static MemberController memberController;
+    public static HomeController homeController;
     public static ArticleRepository articleRepository;
     public static ArticleService articleService;
-    public static MemberController memberController;
     public static ArticleController articleController;
-    public static HomeController homeController;
 
     static {
+        memberRepository = new MemberRepository();
+        memberService = new MemberService();
         memberController = new MemberController();
         articleRepository = new ArticleRepository();
         articleService = new ArticleService();

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/jsp/common/head.jspf" %>
 
-<div>
+<div class="flex flex-col">
     <button type="button" onclick="location.href = '${pageContext.request.contextPath}/usr/article/list'">목록보기</button>
     <button type="button" onclick="location.href = '${pageContext.request.contextPath}/usr/article/modify/${article.id}'">수정하기</button>
     <button type="button" id="deleteBtn">삭제하기</button>

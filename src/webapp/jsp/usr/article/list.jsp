@@ -6,7 +6,7 @@
     <button type="button" onclick="location.href = '${pageContext.request.contextPath}/usr/article/write'">작성하기</button>
 </div>
 <div>
-    <table border="1">
+    <table class="border border-gray-300">
         <thead>
         <tr>
             <th>번호</th>
