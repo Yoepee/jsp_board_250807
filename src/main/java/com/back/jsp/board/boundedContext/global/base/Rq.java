@@ -4,6 +4,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -13,11 +14,13 @@ import java.util.Map;
 public class Rq {
     private final HttpServletRequest req;
     private final HttpServletResponse resp;
+    private final HttpSession session;
     private Map<String, Object> paramMap;
 
     public Rq(HttpServletRequest req, HttpServletResponse resp){
         this.req = req;
         this.resp = resp;
+        this.session = req.getSession();
 
         try {
             req.setCharacterEncoding("UTF-8");
@@ -69,9 +72,12 @@ public class Rq {
     public void setAttr(String key, Object value) {
         req.setAttribute(key, value);
     }
+    public void setSessionAttr(String key, Object value) {
+        session.setAttribute(key, value);
+    }
 
-    public void removeAttr(String key) {
-        req.removeAttribute(key);
+    public void removeSessionAttr(String key) {
+        session.removeAttribute(key);
     }
 
     public void redirect(String path) {

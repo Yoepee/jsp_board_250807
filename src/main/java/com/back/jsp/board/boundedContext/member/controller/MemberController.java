@@ -43,6 +43,7 @@ public MemberController() {
         }
 
         Member member = memberService.joinMember(username, password, name);
+        rq.setSessionAttr("loginedMember", member);
         rq.replace("""
                 회원가입이 성공하었습니다.
                 %s님 환영합니다.
@@ -67,12 +68,12 @@ public MemberController() {
             return;
         }
 
-        rq.setAttr("loginedMemberId", member.getId());
+        rq.setSessionAttr("loginedMember", member);
         rq.replace("%s님 환영합니다.".formatted(member.getName()), "/");
     }
 
     public void doLogout(Rq rq) {
-        rq.removeAttr("loginedMemberId");
+        rq.removeSessionAttr("loginMemberId");
         rq.replace("로그아웃 되었습니다.", "/");
     }
 }
