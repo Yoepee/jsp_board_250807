@@ -80,6 +80,16 @@ public class Rq {
         session.removeAttribute(key);
     }
 
+    public boolean hasSessionAttr(String key) {
+        return session.getAttribute(key) != null;
+    }
+    public boolean isLogined() {
+        return hasSessionAttr("loginedMember");
+    }
+    public boolean isLogout() {
+        return !hasSessionAttr("loginedMember");
+    }
+
     public void redirect(String path) {
         try {
             String ctx = req.getContextPath();

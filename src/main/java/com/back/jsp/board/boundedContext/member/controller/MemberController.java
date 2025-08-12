@@ -14,9 +14,17 @@ public MemberController() {
         this.memberService = Container.memberService;
     }
     public void showJoin(Rq rq) {
+        if (rq.isLogined()){
+            rq.historyBack("잘못된 접근입니다.");
+            return;
+        }
         rq.view("usr/member/join");
     }
     public void showLogin(Rq rq) {
+        if (rq.isLogined()){
+            rq.historyBack("잘못된 접근입니다.");
+            return;
+        }
         rq.view("usr/member/login");
     }
 
