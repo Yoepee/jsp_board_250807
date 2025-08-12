@@ -15,4 +15,12 @@ public class MemberService {
         Member member = new Member(username, password, name);
         return memberRepository.saveMember(member);
     }
+
+    public Member loginMember(String username, String password) {
+        Member member = memberRepository.getMemberByUsername(username);
+        if (member == null || !member.getPassword().equals(password)) {
+            return null; // 로그인 실패
+        }
+        return member; // 로그인 성공
+    }
 }
