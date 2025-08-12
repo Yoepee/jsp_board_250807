@@ -29,7 +29,7 @@
             <label for="title">제목:</label>
             <input type="text" id="title" name="title" value="${article.title}" required>
         </div>
-        <div>W
+        <div>
             <label for="content">내용:</label>
             <textarea id="content" name="content" required>${article.content}</textarea>
         </div>
