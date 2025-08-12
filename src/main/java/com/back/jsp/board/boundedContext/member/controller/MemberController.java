@@ -73,7 +73,7 @@ public MemberController() {
     }
 
     public void doLogout(Rq rq) {
-        rq.removeSessionAttr("loginMemberId");
+        rq.removeSessionAttr("loginedMember");
         rq.replace("로그아웃 되었습니다.", "/");
     }
 }
