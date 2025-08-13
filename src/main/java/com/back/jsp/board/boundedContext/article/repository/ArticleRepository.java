@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 public class ArticleRepository {
@@ -17,6 +18,17 @@ public class ArticleRepository {
         articles = new ArrayList<>();
 
         dbConnection = Container.dbConnection;
+        LoadDBRows();
+    }
+
+    private List<Article> LoadDBRows() {
+        List<Map<String, Object>> rows = dbConnection.selectRows("SELECT * FROM articles");
+        for (Map<String, Object> row : rows) {
+            Article article = new Article(row);
+            articles.add(article);
+        }
+
+        return articles;
     }
 
     public Article saveArticle(Article article) {

@@ -6,6 +6,7 @@ import com.back.jsp.board.db.DBConnection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MemberRepository {
     List<Member> members;
@@ -14,6 +15,15 @@ public class MemberRepository {
     public MemberRepository() {
         members = new ArrayList<>();
         dbConnection = Container.dbConnection;
+    }
+    private List<Member> LoadDBRows() {
+        List<Map<String, Object>> rows = dbConnection.selectRows("SELECT * FROM articles");
+        for (Map<String, Object> row : rows) {
+            Member article = new Member(row);
+            members.add(article);
+        }
+
+        return members;
     }
 
     public Member saveMember(Member member) {
