@@ -21,7 +21,7 @@ public class ArticleRepository {
 
     public List<Article> findAll() {
         articles = new ArrayList<>();
-        List<Map<String, Object>> rows = dbConnection.selectRows("SELECT * FROM articles ORDER BY id DESC");
+        List<Map<String, Object>> rows = dbConnection.selectRows("SELECT * FROM articles ORDER BY id DESC;");
         for (Map<String, Object> row : rows) {
             Article article = new Article(row);
             articles.add(article);
@@ -32,11 +32,19 @@ public class ArticleRepository {
 
     public Article saveArticle(Article article) {
         if (article.isNew()) {
-            int id = dbConnection.insert("INSERT INTO articles (title, content) VALUES ('%s', '%s')".formatted(article.getTitle(), article.getContent()));
+            int id = dbConnection.insert("""
+                    INSERT INTO articles (title, content) 
+                    VALUES 
+                    ('%s', '%s');
+                    """.formatted(article.getTitle(), article.getContent()));
             article.setId(id);
             articles.add(article);
         } else {
-            dbConnection.update("UPDATE articles SET title = '%s', content = '%s', count= '%s' WHERE id = %d".formatted(article.getTitle(), article.getContent(), article.getCount(), article.getId()));
+            dbConnection.update("""
+                    UPDATE articles 
+                    SET title = '%s', content = '%s', count= '%s' 
+                    WHERE id = %d;
+                    """.formatted(article.getTitle(), article.getContent(), article.getCount(), article.getId()));
             articles.removeIf(a -> a.getId() == article.getId());
             articles.add(article);
         }
@@ -50,9 +58,14 @@ public class ArticleRepository {
     }
 
     public Article getArticleById(long id) {
-        return articles.stream()
-                .filter(article -> article.getId() == id)
-                .findFirst()
-                .orElse(null);
+        Map<String, Object> row = dbConnection.selectRow("""
+                SELECT * 
+                FROM articles 
+                WHERE id = %d;
+                """.formatted(id));
+        if (row == null) {
+            return null;
+        }
+        return new Article(row);
     }
 }
