@@ -14,7 +14,7 @@ public class ArticleService {
     }
 
     public List<Article> getArticles() {
-        return repository.getArticles().reversed();
+        return repository.findAll();
     }
 
     public Article writeArticle(String title, String content) {
@@ -38,6 +38,7 @@ public class ArticleService {
             return null;
         }
         article.increaseCount();
+        repository.saveArticle(article);
         return article;
     }
     public boolean deleteArticle(long id) {

@@ -15,14 +15,13 @@ public class ArticleRepository {
     private DBConnection dbConnection;
 
     public ArticleRepository() {
-        articles = new ArrayList<>();
-
         dbConnection = Container.dbConnection;
-        LoadDBRows();
+        findAll();
     }
 
-    private List<Article> LoadDBRows() {
-        List<Map<String, Object>> rows = dbConnection.selectRows("SELECT * FROM articles");
+    public List<Article> findAll() {
+        articles = new ArrayList<>();
+        List<Map<String, Object>> rows = dbConnection.selectRows("SELECT * FROM articles ORDER BY id DESC");
         for (Map<String, Object> row : rows) {
             Article article = new Article(row);
             articles.add(article);
@@ -35,6 +34,10 @@ public class ArticleRepository {
         if (article.isNew()) {
             int id = dbConnection.insert("INSERT INTO articles (title, content) VALUES ('%s', '%s')".formatted(article.getTitle(), article.getContent()));
             article.setId(id);
+            articles.add(article);
+        } else {
+            dbConnection.update("UPDATE articles SET title = '%s', content = '%s', count= '%s' WHERE id = %d".formatted(article.getTitle(), article.getContent(), article.getCount(), article.getId()));
+            articles.removeIf(a -> a.getId() == article.getId());
             articles.add(article);
         }
 
