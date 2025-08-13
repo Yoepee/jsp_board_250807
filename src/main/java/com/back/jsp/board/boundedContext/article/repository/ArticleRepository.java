@@ -48,8 +48,7 @@ public class ArticleRepository {
                     SET title = '%s', content = '%s', count= '%s' 
                     WHERE id = %d;
                     """.formatted(article.getTitle(), article.getContent(), article.getCount(), article.getId()));
-            articles.removeIf(a -> a.getId() == article.getId());
-            articles.add(article);
+            findAll();
         }
 
         return article;
