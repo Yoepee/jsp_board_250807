@@ -1,6 +1,8 @@
 package com.back.jsp.board.boundedContext.article.repository;
 
 import com.back.jsp.board.boundedContext.article.entity.Article;
+import com.back.jsp.board.boundedContext.base.Container;
+import com.back.jsp.board.db.DBConnection;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -11,12 +13,20 @@ import java.util.stream.LongStream;
 public class ArticleRepository {
     private List<Article> articles;
     private int lastId;
+    private DBConnection dbConnection;
 
     public ArticleRepository() {
         articles = new ArrayList<>();
         lastId = 0;
+        makeTestData();
+
+        dbConnection = Container.dbConnection;
+        dbConnection.connect();
+    }
+
+    private void makeTestData() {
         LongStream.rangeClosed(1,5).forEach(
-            i -> saveArticle(new Article("제목" + i, "내용" + i))
+                i -> saveArticle(new Article("제목" + i, "내용" + i))
         );
     }
 
