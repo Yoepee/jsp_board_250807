@@ -95,11 +95,11 @@ public class ArticleRepository {
         return article;
     }
 
-    public boolean deleteArticle(long id) {
+    public boolean deleteArticle(Article article) {
         dbConnection.delete("""
                 DELETE FROM articles 
                 WHERE id = %d;
-                """.formatted(id));
+                """.formatted(article.getId()));
         return true;
     }
 }

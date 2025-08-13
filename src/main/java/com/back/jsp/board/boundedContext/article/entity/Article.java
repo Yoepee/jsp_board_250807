@@ -38,7 +38,7 @@ public class Article {
         this.title = articleDto.getTitle();
         this.content = articleDto.getContent();
         this.count = articleDto.getCount();
-        this.regDate = LocalDateTime.parse(articleDto.getRegDate()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.regDate = articleDto.getRegDate();
         this.authorId = articleDto.getAuthorId();
     }
 

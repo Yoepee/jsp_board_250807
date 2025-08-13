@@ -1,5 +1,6 @@
 package com.back.jsp.board.boundedContext.global.base;
 
+import com.back.jsp.board.boundedContext.member.entity.Member;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -88,6 +89,12 @@ public class Rq {
     }
     public boolean isLogout() {
         return !hasSessionAttr("loginedMember");
+    }
+    public Member getLoginedMember() {
+        if (!isLogined()) {
+            return null;
+        }
+        return (Member) session.getAttribute("loginedMember");
     }
 
     public void redirect(String path) {

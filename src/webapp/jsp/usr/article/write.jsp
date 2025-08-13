@@ -40,7 +40,6 @@
             <textarea id="content" name="content" rows="6" required
                       class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
         </div>
-        <input type="hidden" name="author" value="${loginedMember.id}">
 
         <!-- 버튼 -->
         <div class="flex gap-2 pt-2">
