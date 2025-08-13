@@ -26,7 +26,7 @@ public class ArticleService {
         return repository.saveArticle(article);
     }
     public Article getArticleById(long id) {
-        Article article = repository.getArticleById(id);
+        Article article = repository.findArticleById(id);
         if (article == null) {
             return null;
         }
@@ -46,6 +46,6 @@ public class ArticleService {
         if (article == null) {
             return false;
         }
-        return repository.deleteArticle(article);
+        return repository.deleteArticle(id);
     }
 }

@@ -21,7 +21,10 @@ public class ArticleRepository {
 
     public List<Article> findAll() {
         articles = new ArrayList<>();
-        List<Map<String, Object>> rows = dbConnection.selectRows("SELECT * FROM articles ORDER BY id DESC;");
+        List<Map<String, Object>> rows = dbConnection.selectRows("""
+                SELECT * FROM articles 
+                ORDER BY id DESC;
+                """);
         for (Map<String, Object> row : rows) {
             Article article = new Article(row);
             articles.add(article);
@@ -52,12 +55,16 @@ public class ArticleRepository {
         return article;
     }
 
-    public boolean deleteArticle(Article article) {
-        articles.remove(article);
+    public boolean deleteArticle(long id) {
+        dbConnection.delete("""
+                DELETE FROM articles 
+                WHERE id = %d;
+                """.formatted(id));
+        findAll();
         return true;
     }
 
-    public Article getArticleById(long id) {
+    public Article findArticleById(long id) {
         Map<String, Object> row = dbConnection.selectRow("""
                 SELECT * 
                 FROM articles 
