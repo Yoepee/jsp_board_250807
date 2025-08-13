@@ -28,7 +28,11 @@ public class MemberRepository {
 
     public Member saveMember(Member member) {
         if (member.isNew()) {
-            int id = dbConnection.insert("INSERT INTO members (username, password, name) VALUES ('%s', '%s', '%s')".formatted(member.getUsername(), member.getPassword(), member.getName()));
+            int id = dbConnection.insert("""
+                    INSERT INTO members (username, password, name, regDate) 
+                    VALUES 
+                    ('%s', '%s', '%s', NOW());
+                    """.formatted(member.getUsername(), member.getPassword(), member.getName()));
             member.setId(id);
             members.add(member);
         }
@@ -40,9 +44,9 @@ public class MemberRepository {
         Map<String, Object> row = dbConnection.selectRow("""
                 SELECT * 
                 FROM members 
-                WHERE username = %s;
+                WHERE username ='%s';
                 """.formatted(username));
-        if (row == null) {
+        if (row.isEmpty()) {
             return null;
         }
         return new Member(row);

@@ -55,6 +55,12 @@ public class ArticleController {
     public void doWrite(Rq rq) {
         String title = rq.getParam("title", "").trim();
         String content = rq.getParam("content", "").trim();
+        long authorId = Long.parseLong(String.valueOf(rq.getParam("author", "-1")));
+
+        if (authorId == -1) {
+            rq.historyBack("유효하지 않은 접근입니다.");
+            return;
+        }
 
         if (title.isEmpty()) {
             rq.historyBack("제목을 입력해주세요.");
@@ -66,7 +72,7 @@ public class ArticleController {
             return;
         }
 
-        Article article = articleService.writeArticle(title, content);
+        Article article = articleService.writeArticle(title, content, authorId);
         rq.replace("%d번 게시글이 등록되었습니다.".formatted(article.getId()), "/usr/article/detail/%d".formatted(article.getId()));
     }
 

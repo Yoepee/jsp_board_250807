@@ -25,7 +25,6 @@ public class ArticleRepository {
                 SELECT * FROM articles 
                 ORDER BY id DESC;
                 """);
-        System.out.println("ArticleRepository.findAll() rows = " + rows);
         for (Map<String, Object> row : rows) {
             Article article = new Article(row);
             articles.add(article);
@@ -37,10 +36,10 @@ public class ArticleRepository {
     public Article saveArticle(Article article) {
         if (article.isNew()) {
             int id = dbConnection.insert("""
-                    INSERT INTO articles (title, content, regDate) 
+                    INSERT INTO articles (title, content, author_id, regDate) 
                     VALUES 
-                    ('%s', '%s', NOW());
-                    """.formatted(article.getTitle(), article.getContent()));
+                    ('%s', '%s', %d,NOW());
+                    """.formatted(article.getTitle(), article.getContent(), article.getAuthorId()));
             article.setId(id);
             articles.add(article);
         } else {
@@ -70,7 +69,7 @@ public class ArticleRepository {
                 FROM articles 
                 WHERE id = %d;
                 """.formatted(id));
-        if (row == null) {
+        if (row.isEmpty()) {
             return null;
         }
         return new Article(row);

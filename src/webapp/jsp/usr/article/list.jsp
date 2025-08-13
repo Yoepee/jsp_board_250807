@@ -4,11 +4,6 @@
 <div class="container px-10 my-5">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-bold text-gray-800">게시물 리스트</h1>
-        <button type="button"
-                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                onclick="location.href='${pageContext.request.contextPath}/usr/article/write'">
-            작성하기
-        </button>
     </div>
     <div>
         <table class="min-w-full border border-gray-300 rounded-lg overflow-hidden shadow-sm">
@@ -27,7 +22,7 @@
                     onclick="location.href = '${pageContext.request.contextPath}/usr/article/detail/${article.id}'">
                     <td class="px-4 py-2 border-t">${article.id}</td>
                     <td class="px-4 py-2 border-t font-medium">${article.title}</td>
-                    <td class="px-4 py-2 border-t text-center">${article.author != null ? article.author : '-'}</td>
+                    <td class="px-4 py-2 border-t">${article.authorId}</td>
                     <td class="px-4 py-2 border-t text-gray-500">${article.regDate}</td>
                     <td class="px-4 py-2 border-t text-center">${article.count}</td>
                 </tr>

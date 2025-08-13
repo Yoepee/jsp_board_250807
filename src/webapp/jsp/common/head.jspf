@@ -28,6 +28,11 @@
             </c:if>
 
             <c:if test="${isLogined}">
+                <button type="button"
+                        class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                        onclick="location.href='${pageContext.request.contextPath}/usr/article/write'">
+                    작성하기
+                </button>
                 <span class="text-gray-700">안녕하세요, <strong>${loginedMember.name}</strong>님!</span>
                 <a id="logoutBtn" href="/usr/member/logout" class="text-gray-700 hover:text-red-600 font-medium">로그아웃</a>
                 <form id="logoutForm" action="/usr/member/logout" method="post"></form>

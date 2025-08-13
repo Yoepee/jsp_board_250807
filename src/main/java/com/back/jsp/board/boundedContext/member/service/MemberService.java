@@ -4,6 +4,8 @@ import com.back.jsp.board.boundedContext.base.Container;
 import com.back.jsp.board.boundedContext.member.entity.Member;
 import com.back.jsp.board.boundedContext.member.repository.MemberRepository;
 
+import java.util.Base64;
+
 public class MemberService {
     private final MemberRepository memberRepository;
 
@@ -12,7 +14,8 @@ public class MemberService {
     }
 
     public Member joinMember(String username, String password, String name) {
-        Member member = new Member(username, password, name);
+
+        Member member = new Member(username, encryptPassword(password), name);
         return memberRepository.saveMember(member);
     }
     public Member findByUserName(String username) {
@@ -25,9 +28,14 @@ public class MemberService {
 
     public Member loginMember(String username, String password) {
         Member member = findByUserName(username);
-        if (member == null || !member.getPassword().equals(password)) {
+        if (member == null || !member.getPassword().equals(encryptPassword(password))) {
             return null; // 로그인 실패
         }
         return member; // 로그인 성공
+    }
+
+    public String encryptPassword(String password) {
+        String encryptedPassword = String.valueOf((password+"secret24").hashCode());
+        return Base64.getEncoder().encodeToString((password+"salt").getBytes());
     }
 }

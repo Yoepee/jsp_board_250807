@@ -17,8 +17,8 @@ public class ArticleService {
         return repository.findAll();
     }
 
-    public Article writeArticle(String title, String content) {
-        return repository.saveArticle(new Article(title, content));
+    public Article writeArticle(String title, String content, long authorId) {
+        return repository.saveArticle(new Article(title, content, authorId));
     }
     public Article modifyArticle(Article article, String title, String content) {
         article.setTitle(title);

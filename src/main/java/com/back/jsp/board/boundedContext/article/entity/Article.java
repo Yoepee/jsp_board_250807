@@ -17,13 +17,13 @@ public class Article {
     private String content;
     private long count;
     private String regDate;
-    private String author;
+    private long authorId;
+    private String authorName;
 
-    public Article(String title, String content) {
+    public Article(String title, String content, long author) {
         this.title = title;
         this.content = content;
-        this.regDate = null;
-        this.author = null;
+        this.authorId = author;
     }
     public Article(Map<String, Object> row){
         this.id = Long.parseLong(row.get("id").toString());
@@ -31,7 +31,8 @@ public class Article {
         this.content = (String) row.get("content");
         this.count = Long.parseLong(row.get("count").toString());
         this.regDate = LocalDateTime.parse(row.get("regDate").toString()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.author = (String) row.get("author");
+        this.authorId = Long.parseLong(row.get("author_id").toString());
+        this.authorName = (String) row.get("author_name");
     }
 
     public boolean isNew() {
