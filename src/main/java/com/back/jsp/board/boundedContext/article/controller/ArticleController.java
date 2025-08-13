@@ -1,5 +1,6 @@
 package com.back.jsp.board.boundedContext.article.controller;
 
+import com.back.jsp.board.boundedContext.article.dto.ArticleDto;
 import com.back.jsp.board.boundedContext.article.entity.Article;
 import com.back.jsp.board.boundedContext.article.service.ArticleService;
 import com.back.jsp.board.boundedContext.base.Container;
@@ -12,7 +13,7 @@ public class ArticleController {
         this.articleService = Container.articleService;
     }
     public void showList(Rq rq) {
-        rq.setAttr("articles", articleService.getArticles());
+        rq.setAttr("articleDtos", articleService.findJoinedMemberAll());
         rq.view("usr/article/list");
     }
     public void showWriteForm(Rq rq) {
@@ -26,13 +27,13 @@ public class ArticleController {
             return;
         }
 
-        Article article = articleService.getDetailById(id);
-        if (article == null) {
+        ArticleDto articleDto = articleService.getJoinedMemberById(id);
+        if (articleDto == null) {
             rq.replace("%d번 게시글이 존재하지 않습니다.".formatted(id), "/usr/article/list");
             return;
         }
 
-        rq.setAttr("article", article);
+        rq.setAttr("articleDto", articleDto);
         rq.view("usr/article/detail");
     }
     public void showModify(Rq rq) {
@@ -42,7 +43,7 @@ public class ArticleController {
             return;
         }
 
-        Article article = articleService.getDetailById(id);
+        Article article = articleService.getArticleById(id);
         if (article == null) {
             rq.replace("%d번 게시글이 존재하지 않습니다.".formatted(id), "/usr/article/list");
             return;
@@ -96,7 +97,7 @@ public class ArticleController {
             return;
         }
 
-        Article article = articleService.getDetailById(id);
+        Article article = articleService.getArticleById(id);
         if (article == null) {
             rq.replace("%d번 게시글이 존재하지 않습니다.".formatted(id), "/usr/article/list");
             return;

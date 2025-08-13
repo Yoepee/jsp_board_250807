@@ -1,5 +1,6 @@
 package com.back.jsp.board.boundedContext.article.entity;
 
+import com.back.jsp.board.boundedContext.article.dto.ArticleDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,6 @@ public class Article {
     private long count;
     private String regDate;
     private long authorId;
-    private String authorName;
 
     public Article(String title, String content, long author) {
         this.title = title;
@@ -32,14 +32,17 @@ public class Article {
         this.count = Long.parseLong(row.get("count").toString());
         this.regDate = LocalDateTime.parse(row.get("regDate").toString()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.authorId = Long.parseLong(row.get("author_id").toString());
-        this.authorName = (String) row.get("author_name");
+    }
+    public Article(ArticleDto articleDto){
+        this.id = articleDto.getId();
+        this.title = articleDto.getTitle();
+        this.content = articleDto.getContent();
+        this.count = articleDto.getCount();
+        this.regDate = LocalDateTime.parse(articleDto.getRegDate()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.authorId = articleDto.getAuthorId();
     }
 
     public boolean isNew() {
         return id == 0;
-    }
-
-    public void increaseCount() {
-        this.count++;
     }
 }

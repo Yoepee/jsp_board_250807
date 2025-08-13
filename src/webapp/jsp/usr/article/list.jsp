@@ -17,14 +17,14 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="article" items="${articles}" varStatus="status">
+            <c:forEach var="articleDto" items="${articleDtos}" varStatus="status">
                 <tr class="hover:bg-gray-50 cursor-pointer transition hover:bg-gray-100"
-                    onclick="location.href = '${pageContext.request.contextPath}/usr/article/detail/${article.id}'">
-                    <td class="px-4 py-2 border-t">${article.id}</td>
-                    <td class="px-4 py-2 border-t font-medium">${article.title}</td>
-                    <td class="px-4 py-2 border-t">${article.authorName}</td>
-                    <td class="px-4 py-2 border-t text-gray-500">${article.regDate}</td>
-                    <td class="px-4 py-2 border-t text-center">${article.count}</td>
+                    onclick="location.href = '${pageContext.request.contextPath}/usr/article/detail/${articleDto.id}'">
+                    <td class="px-4 py-2 border-t">${articleDto.id}</td>
+                    <td class="px-4 py-2 border-t font-medium">${articleDto.title}</td>
+                    <td class="px-4 py-2 border-t">${articleDto.authorName}</td>
+                    <td class="px-4 py-2 border-t">${articleDto.regDate}</td>
+                    <td class="px-4 py-2 border-t text-center">${articleDto.count}</td>
                 </tr>
             </c:forEach>
             </tbody>

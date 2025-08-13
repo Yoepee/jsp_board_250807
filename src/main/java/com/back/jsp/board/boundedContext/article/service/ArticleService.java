@@ -1,5 +1,6 @@
 package com.back.jsp.board.boundedContext.article.service;
 
+import com.back.jsp.board.boundedContext.article.dto.ArticleDto;
 import com.back.jsp.board.boundedContext.article.entity.Article;
 import com.back.jsp.board.boundedContext.article.repository.ArticleRepository;
 import com.back.jsp.board.boundedContext.base.Container;
@@ -15,6 +16,9 @@ public class ArticleService {
 
     public List<Article> getArticles() {
         return repository.findAll();
+    }
+    public List<ArticleDto> findJoinedMemberAll() {
+        return repository.findJoinedMemberAll();
     }
 
     public Article writeArticle(String title, String content, long authorId) {
@@ -32,14 +36,14 @@ public class ArticleService {
         }
         return article;
     }
-    public Article getDetailById(long id) {
-        Article article = getArticleById(id);
-        if (article == null) {
+    public ArticleDto getJoinedMemberById(long id) {
+        ArticleDto articleDto = repository.findJoinedMemberById(id);
+        if (articleDto == null) {
             return null;
         }
-        article.increaseCount();
-        repository.saveArticle(article);
-        return article;
+        articleDto.increaseCount();
+        repository.saveArticle(new Article(articleDto));
+        return articleDto;
     }
     public boolean deleteArticle(long id) {
         Article article = getArticleById(id);
