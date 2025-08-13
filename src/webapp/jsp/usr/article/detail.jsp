@@ -1,21 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/jsp/common/head.jspf" %>
 
-<div class="flex flex-col">
-    <button type="button" onclick="location.href = '${pageContext.request.contextPath}/usr/article/list'">목록보기</button>
-    <button type="button" onclick="location.href = '${pageContext.request.contextPath}/usr/article/modify/${article.id}'">수정하기</button>
-    <button type="button" id="deleteBtn">삭제하기</button>
+<div class="flex gap-2 mb-6">
+    <button type="button"
+            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+            onclick="location.href='${pageContext.request.contextPath}/usr/article/modify/${article.id}'">
+        수정하기
+    </button>
+    <button type="button"
+            id="deleteBtn"
+            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+        삭제하기
+    </button>
     <form hidden id="deleteForm" action="${pageContext.request.contextPath}/usr/article/delete/${article.id}" method="post">
         <input type="hidden" name="id" value="${article.id}">
     </form>
 </div>
-<h1> 게시물 상세보기 </h1>
-<div>
-        <div>
-            <p>${article.title}</p>
-            <p>${article.content}</p>
-            <p>조회수: ${article.count}</p>
-        </div>
+
+<!-- 제목 -->
+<h1 class="text-2xl font-bold text-gray-800 mb-4">${article.title}</h1>
+
+<!-- 상세 내용 카드 -->
+<div class="border border-gray-200 rounded-lg p-4 bg-white shadow-sm space-y-2">
+    <p>
+        <span class="font-semibold">내용:</span>
+        <span class="whitespace-pre-wrap">${article.content}</span>
+    </p>
+    <p>
+        <span class="font-semibold">작성자:</span>
+        ${article.author != null ? article.author : '-'}
+    </p>
+    <p class="text-gray-600">
+        <span class="font-semibold">작성일:</span>
+        ${article.regDate}
+    </p>
+    <p class="text-gray-600">
+        <span class="font-semibold">조회수:</span>
+        ${article.count}
+    </p>
 </div>
 
 <script>
