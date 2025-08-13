@@ -68,9 +68,11 @@ public class ArticleRepository {
 
     public Article findArticleById(long id) {
         Map<String, Object> row = dbConnection.selectRow("""
-                SELECT * 
-                FROM articles 
-                WHERE id = %d;
+                SELECT a.*, m.name AS author_name
+                FROM articles AS a
+                INNER JOIN members AS m
+                ON a.author_id = m.id
+                WHERE a.id = %d;
                 """.formatted(id));
         if (row.isEmpty()) {
             return null;
