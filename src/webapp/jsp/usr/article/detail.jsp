@@ -1,21 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/jsp/common/head.jspf" %>
-<div class="flex gap-2 mb-6">
-    <button type="button"
-            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-            onclick="location.href='${pageContext.request.contextPath}/usr/article/modify/${articleDto.id}'">
-        수정하기
-    </button>
-    <button type="button"
-            id="deleteBtn"
-            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
-        삭제하기
-    </button>
-    <form hidden id="deleteForm" action="${pageContext.request.contextPath}/usr/article/delete/${articleDto.id}"
-          method="post">
-        <input type="hidden" name="id" value="${article.id}">
-    </form>
-</div>
+<c:set var="isAuthor" value="${loginedMember.id == articleDto.authorId}" />
+
+<c:if test="${isAuthor}">
+    <div class="flex gap-2 mb-6">
+        <button type="button"
+                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                onclick="location.href='${pageContext.request.contextPath}/usr/article/modify/${articleDto.id}'">
+            수정하기
+        </button>
+        <button type="button"
+                id="deleteBtn"
+                class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+            삭제하기
+        </button>
+        <form hidden id="deleteForm" action="${pageContext.request.contextPath}/usr/article/delete/${articleDto.id}"
+              method="post">
+            <input type="hidden" name="id" value="${article.id}">
+        </form>
+    </div>
+</c:if>
 
 <!-- 제목 -->
 <h1 class="text-2xl font-bold text-gray-800 mb-4">${article.title}</h1>
