@@ -21,6 +21,7 @@ public class Container {
 
     static {
         dbConnection = new DBConnection();
+        dbConnection.connect();
         memberRepository = new MemberRepository();
         memberService = new MemberService();
         memberController = new MemberController();
