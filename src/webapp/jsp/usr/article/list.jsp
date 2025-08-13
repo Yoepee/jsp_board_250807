@@ -22,7 +22,7 @@
                     onclick="location.href = '${pageContext.request.contextPath}/usr/article/detail/${article.id}'">
                     <td class="px-4 py-2 border-t">${article.id}</td>
                     <td class="px-4 py-2 border-t font-medium">${article.title}</td>
-                    <td class="px-4 py-2 border-t">${article.authorId}</td>
+                    <td class="px-4 py-2 border-t">${article.authorName}</td>
                     <td class="px-4 py-2 border-t text-gray-500">${article.regDate}</td>
                     <td class="px-4 py-2 border-t text-center">${article.count}</td>
                 </tr>

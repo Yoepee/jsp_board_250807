@@ -22,7 +22,10 @@ public class ArticleRepository {
     public List<Article> findAll() {
         articles = new ArrayList<>();
         List<Map<String, Object>> rows = dbConnection.selectRows("""
-                SELECT * FROM articles 
+                SELECT a.*, m.name AS author_name
+                FROM articles AS a
+                INNER JOIN members AS m
+                ON a.author_id = m.id
                 ORDER BY id DESC;
                 """);
         for (Map<String, Object> row : rows) {

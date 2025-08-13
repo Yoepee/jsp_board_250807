@@ -28,7 +28,7 @@
     </p>
     <p>
         <span class="font-semibold">작성자:</span>
-        ${article.authorId}
+        ${article.authorName}
     </p>
     <p class="text-gray-600">
         <span class="font-semibold">작성일:</span>
