@@ -33,6 +33,7 @@ public class ArticleController {
             rq.replace("%d번 게시글이 존재하지 않습니다.".formatted(id), "/usr/article/list");
             return;
         }
+        articleDto = articleService.increaseCount(articleDto);
 
         rq.setAttr("articleDto", articleDto);
         rq.view("usr/article/detail");

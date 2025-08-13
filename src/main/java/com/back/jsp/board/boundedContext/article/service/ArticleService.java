@@ -42,6 +42,9 @@ public class ArticleService {
         if (articleDto == null) {
             return null;
         }
+        return articleDto;
+    }
+    public ArticleDto increaseCount(ArticleDto articleDto) {
         articleDto.increaseCount();
         repository.saveArticle(new Article(articleDto));
         return articleDto;
