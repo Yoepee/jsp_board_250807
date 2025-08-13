@@ -12,18 +12,28 @@
     <title>게시판</title>
 </head>
 <body>
-<header class="w-full h-10 flex items-center gap-10">
-    <a href="/">홈</a>
-    <a href="/usr/article/list">리스트</a>
-    <c:if test="${!isLogined}">
-        <a href="/usr/member/login">로그인</a>
-        <a href="/usr/member/join">회원가입</a>
-    </c:if>
-    <c:if test="${isLogined}">
-        <span>안녕하세요, ${loginedMember.name}님!</span>
-        <a id="logoutBtn" href="/usr/member/logout">로그아웃</a>
-        <form id="logoutForm" action="/usr/member/logout" method="post"></form>
-    </c:if>
+<header class="w-full bg-gray-100 border-b border-gray-200">
+    <div class="max-w-6xl mx-auto h-12 flex items-center justify-between px-4">
+        <!-- 왼쪽 메뉴 -->
+        <nav class="flex items-center gap-6">
+            <a href="/" class="text-gray-700 hover:text-blue-600 font-medium">홈</a>
+            <a href="/usr/article/list" class="text-gray-700 hover:text-blue-600 font-medium">리스트</a>
+        </nav>
+
+        <!-- 오른쪽 메뉴 -->
+        <div class="flex items-center gap-4">
+            <c:if test="${!isLogined}">
+                <a href="/usr/member/login" class="text-gray-700 hover:text-blue-600 font-medium">로그인</a>
+                <a href="/usr/member/join" class="text-gray-700 hover:text-blue-600 font-medium">회원가입</a>
+            </c:if>
+
+            <c:if test="${isLogined}">
+                <span class="text-gray-700">안녕하세요, <strong>${loginedMember.name}</strong>님!</span>
+                <a id="logoutBtn" href="/usr/member/logout" class="text-gray-700 hover:text-red-600 font-medium">로그아웃</a>
+                <form id="logoutForm" action="/usr/member/logout" method="post"></form>
+            </c:if>
+        </div>
+    </div>
 </header>
 <script>
     document.getElementById("logoutBtn").addEventListener("click", function(event) {

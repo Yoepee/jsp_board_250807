@@ -37,9 +37,14 @@ public class MemberRepository {
     }
 
     public Member findByUserName(String username) {
-        return members.stream()
-                .filter(member -> member.getUsername().equals(username))
-                .findFirst()
-                .orElse(null);
+        Map<String, Object> row = dbConnection.selectRow("""
+                SELECT * 
+                FROM members 
+                WHERE username = %s;
+                """.formatted(username));
+        if (row == null) {
+            return null;
+        }
+        return new Member(row);
     }
 }
